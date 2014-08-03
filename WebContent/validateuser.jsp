@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 
@@ -7,7 +9,9 @@
             //int languageId = Integer.parseInt(request.getParameter("slctlanguage"));
             System.out.println(username+":"+password);
             System.out.println("inside validateuser.jsp");
-            Account account = Account.getAccount(username,password);            
+            Account account = Account.getAccount(username,password);
+            //ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+            //Account account = (Account) applicationContext.getBean("account");
             
             if (account != null)
             {

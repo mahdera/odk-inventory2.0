@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>	
+	
+	<bean id="healthCenter" class="et.edu.aau.odkinventory.server.classes.HealthCenter">
+		<property name="id" value="0"></property>
+		<property name="healthCenterName" value="Health Center Name"></property>
+		<property name="description" value="Health center description"></property>		
+	</bean>
+	
+</beans>

@@ -17,6 +17,11 @@ public class HealthCenter {
 	private int id;
 	private String healthCenterName;
 	private String description;
+	
+	public HealthCenter(){
+		
+	}
+	
 	/**
 	 * @param healthCenterName
 	 * @param description

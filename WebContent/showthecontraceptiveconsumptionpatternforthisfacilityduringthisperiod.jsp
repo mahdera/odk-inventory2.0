@@ -135,7 +135,7 @@
 				//now get the odk user id of this inv user from the database...
 				RelateODKUserWithInventoryUser relatedUser = RelateODKUserWithInventoryUser.getRelateODKUserWithInventoryUserForInventoryUser(hewId);
 				//now get sum of all givs issued by this particular user during this period for each item code
-				if(relatedUser != null){
+				if(relatedUser != null && user != null){
 					String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
 					float pillsAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("PILLS_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
 					float condomAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("CONDOM_AMOUNT",relatedUser.get_uri(),fromDate,toDate);

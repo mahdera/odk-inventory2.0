@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 <%
@@ -9,7 +11,11 @@
 	String googleMap = StringEscapeUtils.escapeSql(request.getParameter("googleMap"));
 	
 	
-	HealthCenter healthCenter = new HealthCenter(healthCenterName,description);
+	//HealthCenter healthCenter = new HealthCenter(healthCenterName,description);
+	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+	HealthCenter healthCenter = (HealthCenter) applicationContext.getBean("healthCenter");
+	healthCenter.setHealthCenterName(healthCenterName);
+	healthCenter.setDescription(description);
 	healthCenter.addHealthCenter();
 	HealthCenter fetchedHealthCenter = HealthCenter.fetchHealthCenterUsing(healthCenterName,description);
 	//now save the location of the health center...
