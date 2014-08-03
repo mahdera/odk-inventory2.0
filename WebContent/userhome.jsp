@@ -35,11 +35,7 @@
 <div id="main"> 
  	
  	
- 	<%
- 	Account acctu = (Account) session.getAttribute("account");
-	User u = User.getUser(acctu.getUserId());
-	
- 	%>
+ 	
 	<!-- Tray -->
 	<%@include file="tray.jsp" %> 	 
  
@@ -81,11 +77,6 @@
  						out.print(msg);
  					}
  					
- 					if(u.getUserType().equalsIgnoreCase("Administrator")){
- 						%>
- 							<%-- <%@include file="displayreminderminimumvaluesforadministratorsroutine.jsp" %> --%>
- 						<%
- 					}
  				%>
  				<div id="reorderLevelReminderDiv"></div>
  			</div>		 

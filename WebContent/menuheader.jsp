@@ -7,8 +7,11 @@
 			//int languId = Integer.parseInt(session.getAttribute("langId").toString());
 			List<Functionality> functionalityList = Functionality.getAllFunctionalities();
 			Iterator<Functionality> functionalityItr = functionalityList.iterator();
-			Account acct = (Account)session.getAttribute("account");		
-			User user1 = User.getUser(acct.getUserId());
+			Account acct = (Account)session.getAttribute("account");
+			User user1 = null;
+			if(acct != null){
+			 	user1 = User.getUser(acct.getUserId());
+			}
 		%> 
 		<ul class="box"> 
 			<%

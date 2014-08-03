@@ -6,12 +6,14 @@
 	int facilityId = Integer.parseInt(request.getParameter("facilityId"));
 	Date fromDate = Date.valueOf(request.getParameter("fromDate"));
 	Date toDate = Date.valueOf(request.getParameter("toDate"));
+	Iterator<HEWManagesHealthPost> hewManagesHealthPostItr = null;
 	
 	if(type.equalsIgnoreCase("hp")){
 		//first get all the HEW working in this health post
 		HealthPost healthPost = HealthPost.getHealthPost(facilityId);
 		List<HEWManagesHealthPost> hewManagesHealthPostList = HEWManagesHealthPost.getAllHEWManagesHealthPostsForThisHealthPost(healthPost.getId());
-		Iterator<HEWManagesHealthPost> hewManagesHealthPostItr = hewManagesHealthPostList.iterator();
+		if(!hewManagesHealthPostList.isEmpty())
+			hewManagesHealthPostItr = hewManagesHealthPostList.iterator();
 		%>
 		<h3 style="background:lightyellow">Contraceptive Consumption Pattern Report For Health Post During <%=fromDate %> up to <%=toDate %></h3>
 		<table border="0" width="100%">
@@ -83,8 +85,10 @@
 		//here get all health posts under this health center...
 		HealthCenter healthCenter = HealthCenter.getHealthCenter(facilityId);
 		
-		List<HealthPost> healthPostList = HealthPost.getAllHealthPostsUnderThisHealthCenter(healthCenter.getId());
-		Iterator<HealthPost> healthPostItr = healthPostList.iterator();
+		List<HealthPost> healthPostList = HealthPost.getAllHealthPostsUnderThisHealthCenter(healthCenter.getId());		
+		Iterator<HealthPost> healthPostItr = null;
+		if(!healthPostList.isEmpty()){
+			healthPostItr = healthPostList.iterator();
 		%>
 		<h3 style="background:lightyellow">Contraceptive Consumption Pattern Report For Health Center: <%=healthCenter.getHealthCenterName() %> During <%=fromDate %> up to <%=toDate %></h3>
 		<%
@@ -96,7 +100,8 @@
 		while(healthPostItr.hasNext()){
 			HealthPost healthPost = healthPostItr.next();
 			List<HEWManagesHealthPost> hewManagesHealthPostList = HEWManagesHealthPost.getAllHEWManagesHealthPostsForThisHealthPost(healthPost.getId());
-			Iterator<HEWManagesHealthPost> hewManagesHealthPostItr = hewManagesHealthPostList.iterator();
+			if(!hewManagesHealthPostList.isEmpty())
+				hewManagesHealthPostItr = hewManagesHealthPostList.iterator();
 			%>
 			
 			<table border="0" width="100%">
@@ -126,32 +131,35 @@
 				HEWManagesHealthPost hewManagesHealthPost = hewManagesHealthPostItr.next();
 				int hewId = hewManagesHealthPost.getUserId();
 				User user = User.getUser(hewId);
-				String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
+				
 				//now get the odk user id of this inv user from the database...
 				RelateODKUserWithInventoryUser relatedUser = RelateODKUserWithInventoryUser.getRelateODKUserWithInventoryUserForInventoryUser(hewId);
 				//now get sum of all givs issued by this particular user during this period for each item code
-				float pillsAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("PILLS_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
-				float condomAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("CONDOM_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
-				float injectableAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("INJECTABLE_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
-				float implantAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("IMPLANT_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
-				float rowTotal = pillsAmt + condomAmt + injectableAmt + implantAmt;
-				////now do the column calculation...
-				grandTotalCondom += condomAmt;
-				grandTotalPills += pillsAmt;
-				grandTotalInjectable += injectableAmt;
-				grandTotalImplant += implantAmt;
-				grandTotal += rowTotal;
-				%>
-				<tr>
-					<td><%=ctr %></td>
-					<td><%=hewFullName %></td>
-					<td><%=condomAmt %></td>
-					<td><%=pillsAmt %></td>
-					<td><%=injectableAmt %></td>
-					<td><%=implantAmt %></td>
-					<td><%=rowTotal %></td>
-				</tr>
-				<%
+				if(relatedUser != null){
+					String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
+					float pillsAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("PILLS_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
+					float condomAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("CONDOM_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
+					float injectableAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("INJECTABLE_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
+					float implantAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("IMPLANT_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
+					float rowTotal = pillsAmt + condomAmt + injectableAmt + implantAmt;
+					////now do the column calculation...
+					grandTotalCondom += condomAmt;
+					grandTotalPills += pillsAmt;
+					grandTotalInjectable += injectableAmt;
+					grandTotalImplant += implantAmt;
+					grandTotal += rowTotal;
+					%>
+					<tr>
+						<td><%=ctr %></td>
+						<td><%=hewFullName %></td>
+						<td><%=condomAmt %></td>
+						<td><%=pillsAmt %></td>
+						<td><%=injectableAmt %></td>
+						<td><%=implantAmt %></td>
+						<td><%=rowTotal %></td>
+					</tr>
+					<%
+				}
 			}//end while loop
 			%>
 				<tr style="font-weight:bolder">				
@@ -189,5 +197,6 @@
 			</tr>
 		</table>
 		<%
+		}//!hewHealthPostList.isEmpty...
 	}//end else if hc level
 %>

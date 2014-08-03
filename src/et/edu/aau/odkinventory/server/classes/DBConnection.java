@@ -24,20 +24,20 @@ public class DBConnection {
 
     private static void connect() throws Exception {
         Class.forName(DATABASE_DRIVER).newInstance();
-        //con = DriverManager.getConnection(DATABASE_URL, "root", "invroot");
         con = DriverManager.getConnection(DATABASE_URL, "root", "root");
-        stmt = con.createStatement();
-        connected = true;
+        if(con != null){
+        		stmt = con.createStatement();
+        		connected = true;
+        }else{
+        		connected = false;
+        }
     }
 
-    public static Connection getDatabaseConnection() throws Exception
-    {
+    public static Connection getDatabaseConnection() throws Exception{
         connect();
         Connection connection = getCon();
         return connection;
     }
-
-    
 
     public static void disconnectDatabase() {
         try {
@@ -45,7 +45,48 @@ public class DBConnection {
             con.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        }
+        } 
+    }
+
+    public static boolean isConnected() {
+        return connected;
+    }
+
+    public static void writeToDatabaseSec(PreparedStatement pStmt){
+    		try{
+    			pStmt.executeUpdate();
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    }
+    
+    public static ResultSet readFromDatabaseSec(PreparedStatement pStmt){
+    		ResultSet rSet = null;
+    		try{
+    			rSet = pStmt.executeQuery();
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		return rSet;
+    }
+    
+    public static PreparedStatement getPreparedStatement(String sqlStr){
+    		PreparedStatement preparedStatement = null;
+    		try{
+    			connect();
+    			preparedStatement = getCon().prepareStatement(sqlStr);
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		return preparedStatement;
+    }
+
+    public static Connection getCon() {
+        return con;
+    }
+
+    public static void setCon(Connection con) {
+        DBConnection.con = con;
     }
 
     public static ResultSet readFromDatabase(String query) {
@@ -57,11 +98,7 @@ public class DBConnection {
         }
         return rSet;
     }
-
-    public static boolean isConnected() {
-        return connected;
-    }
-
+    
     public static void writeToDatabase(String command) {
         try {
             connect();
@@ -69,14 +106,6 @@ public class DBConnection {
         } catch (Exception sqle) {
             sqle.printStackTrace();
         }
-    }
-
-    public static Connection getCon() {
-        return con;
-    }
-
-    public static void setCon(Connection con) {
-        DBConnection.con = con;
     }
     
 }//end class

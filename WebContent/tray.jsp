@@ -15,22 +15,29 @@
 
 	<p class="f-right">
 		<%
-			Account account = (Account)session.getAttribute("account");
-			int userId = account.getUserId();
-			User user = User.getUser(userId);			
+			Account at = (Account)session.getAttribute("account");
+			User userObject = null;
+			if(at != null){
+			 	userObject = User.getUser(at.getUserId());
+			}else{
+				 response.sendRedirect("index.jsp");
+			}
+			
+			System.out.println("the userobj is : "+userObject);
+			User user = userObject;			
 			//Employee empObj = Employee.getEmployee(account.getEmpId());
 			//String logInMessage = user.getUserType()+" "+user.getFullName()+" Logged in";
-		if(user.getUserType() != null){
+		if(user != null && user.getUserType() != null){
 			//Woreda userWoreda = Woreda.getWoreda(user.getWoredaId());
 			String userFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
 			String managesStr = null;
-			if(user.getUserType().equalsIgnoreCase("hew")){
+			if(user != null && user.getUserType().equalsIgnoreCase("hew")){
 				HEWManagesHealthPost managesHP = HEWManagesHealthPost.getHEWManagesHealthPostForThisUser(user.getId());
 				managesStr = "Health Post : "+HealthPost.getHealthPost(managesHP.getHealthPostId()).getHealthPostName();
-			}else if(user.getUserType().equalsIgnoreCase("hc administrator") || user.getUserType().equalsIgnoreCase("nurse")){
+			}else if(user != null && user.getUserType().equalsIgnoreCase("hc administrator") || user.getUserType().equalsIgnoreCase("nurse")){
 				NurseManagesHealthCenter managesHC = NurseManagesHealthCenter.getNurseManagesHealthCenterForThisUser(user.getId());
 				managesStr = "Health Center : "+HealthCenter.getHealthCenter(managesHC.getHealthCenterId()).getHealthCenterName();
-			}else if(user.getUserType().equalsIgnoreCase("administrator")){
+			}else if(user != null && user.getUserType().equalsIgnoreCase("administrator")){
 				managesStr = "All health centers";
 			}
 		%>			

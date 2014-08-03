@@ -36,14 +36,12 @@
 							</tr>
 							<tr>
 								<td style="width: 70px;">Username:</td>
-								<td><input type="text" size="15" name="txtusername"
-									id="txtusername" class="input-text"/>
+								<td><input type="text" size="15" name="txtusername" id="txtusername" class="input-text"/>
 								</td>
 							</tr>
 							<tr>
 								<td>Password:</td>
-								<td><input type="password" size="15" name="txtpassword"
-									id="txtpassword" class="input-text" />
+								<td><input type="password" size="15" name="txtpassword" id="txtpassword" class="input-text" />
 								</td>
 							</tr>							
 							<tr>

@@ -139,4 +139,9 @@
 	<!-- /main -->
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#txtusername').focus();
+	});//end document.ready function
+</script>
 </html>
