@@ -19,7 +19,15 @@
 	healthCenter.addHealthCenter();
 	HealthCenter fetchedHealthCenter = HealthCenter.fetchHealthCenterUsing(healthCenterName,description);
 	//now save the location of the health center...
-	HealthCenterLocation healthCenterLocation = new HealthCenterLocation(woreda,kebele,gote,googleMap,fetchedHealthCenter.getId());
+	//HealthCenterLocation healthCenterLocation = new HealthCenterLocation(woreda,kebele,gote,googleMap,fetchedHealthCenter.getId());
+	
+	HealthCenterLocation healthCenterLocation = (HealthCenterLocation) applicationContext.getBean("healthCenterLocation");
+	healthCenterLocation.setWoreda(woreda);
+	healthCenterLocation.setKebele(kebele);
+	healthCenterLocation.setGote(gote);
+	healthCenterLocation.setGoogleMap(googleMap);
+	healthCenterLocation.setHealthCenterId(fetchedHealthCenter.getId());
+	
 	healthCenterLocation.addHealthCenterLocation();
 %>
 <%@include file="showaddhealthcenterform.jsp" %>

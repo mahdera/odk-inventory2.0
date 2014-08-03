@@ -31,6 +31,11 @@ public class GRV {
 	private Date condomExpireDate;
 	private Date injectableExpireDate;
 	private Date implantExpireDate;
+	
+	
+	
+	public GRV() {
+	}
 	/**
 	 * @param _uri
 	 * @param _creator_uri_user

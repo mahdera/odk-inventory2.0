@@ -17,10 +17,8 @@ public class User {
 	private String middleName;
 	private String lastName;
 	private String userType;
-
-	/**
-	 * 
-	 */
+	
+	
 	public User() {
 	}
 

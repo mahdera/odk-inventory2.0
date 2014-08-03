@@ -28,6 +28,9 @@ public class GIV {
 	private float injectable_amount;
 	private float implant_amount;
 	
+	
+	public GIV() {
+	}
 
 	/**
 	 * @param _uri

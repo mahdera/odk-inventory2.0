@@ -18,6 +18,9 @@ public class MainStore {
 	
 	
 	
+	public MainStore() {
+	}
+
 	/**
 	 * @param id
 	 * @param mainStoreName

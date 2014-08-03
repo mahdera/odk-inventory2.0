@@ -16,6 +16,11 @@ public class StockDetail {
 	private long stockId;
 	private String itemCode;
 	private float currentQuantity;
+	
+	
+
+	public StockDetail() {
+	}
 
 	/**
 	 * @param stockId

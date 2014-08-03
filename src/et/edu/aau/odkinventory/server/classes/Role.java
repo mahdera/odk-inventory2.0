@@ -24,8 +24,8 @@ public class Role {
 	    private boolean updateable;
 	    private boolean deletable;
 	    private int functionalityId;
-
-	    public Role() {
+	    
+		public Role() {
 	    }
 
 	    public Role(int accountId, boolean readable, boolean writable, boolean updateable, boolean deletable, int functionalityId) {

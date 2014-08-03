@@ -9,6 +9,11 @@ public class HealthPost {
 	private String healthPostName;
 	private String description;
 	private int healthCenterId;
+	
+	public HealthPost(){
+		
+	}
+	
 	/**
 	 * @param healthPostName
 	 * @param description
@@ -201,6 +206,7 @@ public class HealthPost {
 			String query = "select * from tbl_health_post where health_post_name='"+healthPostName+"' and "+
 			"description='"+description+"' and health_center_id = "+healthCenterId;
 			ResultSet rSet = DBConnection.readFromDatabase(query);
+			System.out.println(query);
 			while(rSet.next()){
 				healthPost = new HealthPost(rSet.getInt("id"), rSet.getString("health_post_name"), 
 						rSet.getString("description"), rSet.getInt("health_center_id"));

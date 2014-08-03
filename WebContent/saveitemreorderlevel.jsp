@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 <%
 	long stockId = Long.parseLong(request.getParameter("stockId"));
@@ -5,7 +7,16 @@
 	float reorderLevel = Float.parseFloat(request.getParameter("reorderLevel"));
 	float emergencyReorderLevel = Float.parseFloat(request.getParameter("emergencyReorderLevel"));
 	
-	ItemReorderLevel itemReorderLevel = new ItemReorderLevel(stockId,iCode,reorderLevel,emergencyReorderLevel);
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
+	
+	ItemReorderLevel itemReorderLevel = (ItemReorderLevel) appContext.getBean("itemReorderLevel"); 
+	//new ItemReorderLevel(stockId,iCode,reorderLevel,emergencyReorderLevel);
+	
+	itemReorderLevel.setStockId(stockId);
+	itemReorderLevel.setItemCode(iCode);
+	itemReorderLevel.setReorderLevel(reorderLevel);
+	itemReorderLevel.setEmergencyReorderLevel(emergencyReorderLevel);
+	
 	itemReorderLevel.addItemReorderLevel();
 %>
 <%@include file="showadditemreorderlevelform.jsp"%>

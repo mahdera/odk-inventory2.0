@@ -17,6 +17,11 @@ public class Mother {
 	private String houseNumberGote;
 	private String preferredContraceptiveMethod;
 	private String phoneNumber;
+	
+	
+	
+	public Mother() {
+	}
 	/**
 	 * @param motherFullName
 	 * @param houseNumberGote

@@ -19,6 +19,11 @@ public class ItemReorderReminder {
 	private String message;
 	private Date dateMessageSent;
 	private String status;
+	
+	
+
+	public ItemReorderReminder() {
+	}
 
 	/**
 	 * @param stockId

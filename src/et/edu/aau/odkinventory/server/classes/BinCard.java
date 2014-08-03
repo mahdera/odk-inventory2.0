@@ -20,6 +20,17 @@ public class BinCard {
 	private float transactionQuantity;
 	private int stockId;
 	private float itemCurrentBalance;
+	
+	
+	
+	public BinCard() {
+		
+	}
+
+
+
+
+
 	/**
 	 * @param itemId
 	 * @param binCardDate

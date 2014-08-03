@@ -20,6 +20,11 @@ public class ReminderMessage {
 	private Date sentDate;
 	private boolean isMessageDelivered;
 	private Date deliveredDate;
+	
+	
+
+	public ReminderMessage() {
+	}
 
 	/**
 	 * @param scheduleId

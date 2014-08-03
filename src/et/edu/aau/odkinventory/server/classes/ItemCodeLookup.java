@@ -14,6 +14,11 @@ import java.util.List;
 public class ItemCodeLookup {
 	private int id;
 	private String itemCode;
+	
+	
+
+	public ItemCodeLookup() {
+	}
 
 	/**
 	 * @param itemCode

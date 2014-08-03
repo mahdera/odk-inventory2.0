@@ -21,39 +21,41 @@
 		while(healthPostItr.hasNext()){
 			HealthPost healthPost = healthPostItr.next();
 			HealthCenter healthCenter = HealthCenter.getHealthCenter(healthPost.getHealthCenterId());
-			HealthPostLocation healthPostLocation = HealthPostLocation.getHealthPostLocationForThisHealthPost(healthPost.getId());
-			if(ctr % 2 == 0){
-			%>
-			<tr class='bg'>
-			<%
-			}else{
-			%>
-			<tr>
-			<%
-			}
-			%>
-				<td><%=ctr %></td>
-				<td><%=healthPost.getHealthPostName() %></td>
-				<td><%=healthPost.getDescription() %></td>
-				<td><%=healthPostLocation.getWoreda() %></td>
-				<td><%=healthPostLocation.getKebele() %></td>
-				<td><%=healthPostLocation.getGote() %></td>
-				<td><%=healthCenter.getHealthCenterName() %></td>
-				<td>
-					<a href="#.jsp" onclick="showGoogleMapForThisHealthPost(<%=healthPost.getId() %>);">Click here to see google map</a> | 
-					<a href="#.jsp" onclick="hideGoogleMap(<%=healthPostLocation.getId() %>);">Hide Map</a>
-				</td>
-			</tr>
-			<%
-				String divId = "healthPostDiv"+healthPostLocation.getId();
-			%>
-			<tr>
-				<td colspan="7">
-					<div id="<%=divId %>"></div>
-				</td>
-			</tr>
-			<%
-			ctr++;
+			if(healthCenter != null){
+				HealthPostLocation healthPostLocation = HealthPostLocation.getHealthPostLocationForThisHealthPost(healthPost.getId());
+				if(ctr % 2 == 0){
+				%>
+				<tr class='bg'>
+				<%
+				}else{
+				%>
+				<tr>
+				<%
+				}
+				%>
+					<td><%=ctr %></td>
+					<td><%=healthPost.getHealthPostName() %></td>
+					<td><%=healthPost.getDescription() %></td>
+					<td><%=(healthPostLocation != null ? healthPostLocation.getWoreda() : "---") %></td>
+					<td><%=(healthPostLocation != null ? healthPostLocation.getKebele() : "---") %></td>
+					<td><%=(healthPostLocation != null ? healthPostLocation.getGote() : "---") %></td>
+					<td><%=(healthPostLocation != null ? healthCenter.getHealthCenterName() : "---") %></td>
+					<td>
+						<a href="#.jsp" onclick="showGoogleMapForThisHealthPost(<%=healthPost.getId() %>);">Click here to see google map</a> | 
+						<a href="#.jsp" onclick="hideGoogleMap(<%=(healthPostLocation != null ? healthPostLocation.getId() : 0) %>);">Hide Map</a>
+					</td>
+				</tr>
+				<%
+					String divId = "healthPostDiv"+healthPostLocation.getId();
+				%>
+				<tr>
+					<td colspan="7">
+						<div id="<%=divId %>"></div>
+					</td>
+				</tr>
+				<%
+				ctr++;
+			}//end if hC != null
 		}//end while loop
 	%>
 </table>

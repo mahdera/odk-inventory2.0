@@ -18,6 +18,11 @@ public class HEW {
 	private String grandFatherName;
 	private String mobileNumber;
 	private int healthPostId;
+	
+	
+	
+	public HEW() {
+	}
 	/**
 	 * @param firstName
 	 * @param fatherName

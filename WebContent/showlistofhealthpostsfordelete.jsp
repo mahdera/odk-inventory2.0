@@ -35,10 +35,10 @@
 				<td><%=ctr %></td>
 				<td><%=healthPost.getHealthPostName() %></td>
 				<td><%=healthPost.getDescription() %></td>
-				<td><%=healthPostLocation.getWoreda() %></td>
-				<td><%=healthPostLocation.getKebele() %></td>
-				<td><%=healthPostLocation.getGote() %></td>
-				<td><%=healthCenter.getHealthCenterName() %></td>
+				<td><%=(healthPostLocation != null ? healthPostLocation.getWoreda() : "---") %></td>
+				<td><%=(healthPostLocation != null ? healthPostLocation.getKebele() : "---") %></td>
+				<td><%=(healthPostLocation != null ? healthPostLocation.getGote() : "---") %></td>
+				<td><%=(healthPostLocation != null ? healthCenter.getHealthCenterName() : "---")%></td>
 				<td>
 					<a href="#.jsp" onclick="deleteThisHealthPost(<%=healthPost.getId() %>);">Delete</a>
 				</td>

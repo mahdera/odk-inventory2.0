@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 <%
 	//int branchId = Integer.parseInt(request.getParameter("branchId"));
@@ -9,20 +11,35 @@
 	String password = request.getParameter("password");
 	int healthInistituteId = Integer.parseInt(request.getParameter("healthInistituteId"));
 	
-	//User user = new User(branchId,firstName,middleName,lastName,userType);
-	User user = new User(firstName,middleName,lastName,userType);
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
+	
+	User user = (User) appContext.getBean("user");
+	user.setFirstName(firstName);
+	user.setMiddleName(middleName);
+	user.setLastName(lastName);
+	user.setUserType(userType);
+	
 	user.addUser();
+	
 	User fetchedUser = User.getUserWith(firstName,middleName,lastName,userType);
-	Account account = new Account(fetchedUser.getId(),username,password);
+	Account account = (Account) appContext.getBean("account");
+	account.setUserId(fetchedUser.getId());
+	account.setUsername(username);
+	account.setPassword(password);
+	
 	account.addAccount();
 	int getMaxRecentAccount = Account.getMaxAccountIdValue();
 	Role.createBlankRoleUponUserCreation(getMaxRecentAccount);
 	//now save the hewmanages health post information to the database...
 	if(userType.equalsIgnoreCase("HEW")){
-		HEWManagesHealthPost hewManagesHealthPost = new HEWManagesHealthPost(fetchedUser.getId(),healthInistituteId);
+		HEWManagesHealthPost hewManagesHealthPost = (HEWManagesHealthPost) appContext.getBean("hewManagesHealthPost");
+		hewManagesHealthPost.setUserId(fetchedUser.getId());
+		hewManagesHealthPost.setHealthPostId(healthInistituteId);		
 		hewManagesHealthPost.addHEWManagesHealthPost();
 	}else if(userType.equalsIgnoreCase("HEW Supervisor")){
-		NurseManagesHealthCenter nurseManagesHealthCenter = new NurseManagesHealthCenter(fetchedUser.getId(),healthInistituteId);
+		NurseManagesHealthCenter nurseManagesHealthCenter = (NurseManagesHealthCenter) appContext.getBean("nurseManagesHealthCenter");
+		nurseManagesHealthCenter.setUserId(fetchedUser.getId());
+		nurseManagesHealthCenter.setHealthCenterId(healthInistituteId);		
 		nurseManagesHealthCenter.addNurseManagesHealthCenter();
 	}
 %>

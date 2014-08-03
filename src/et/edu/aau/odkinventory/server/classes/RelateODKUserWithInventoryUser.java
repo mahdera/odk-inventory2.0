@@ -15,6 +15,11 @@ public class RelateODKUserWithInventoryUser {
 	private int id;
 	private int userId;
 	private String _uri;
+	
+	
+
+	public RelateODKUserWithInventoryUser() {
+	}
 
 	/**
 	 * @param userId

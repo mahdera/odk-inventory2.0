@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 <%
 	long mainStoreId = Long.parseLong(request.getParameter("mainStoreId"));
@@ -14,7 +16,13 @@
 		MainStoreDetail.updateTheQuantityOfThisItemOnThisMainStore(mainStoreId,itemCode,updatedQuantity);
 	}else{
 		//insert new record
-		MainStoreDetail mainStoreDetail = new MainStoreDetail(mainStoreId,itemCode,quantity);
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
+		
+		MainStoreDetail mainStoreDetail = (MainStoreDetail) appContext.getBean("mainStoreDetail");
+		mainStoreDetail.setMainStoreId(mainStoreId);
+		mainStoreDetail.setItemCode(itemCode);
+		mainStoreDetail.setCurrentQuantity(quantity);
+		
 		mainStoreDetail.addMainStoreDetail();
 	}
 %>

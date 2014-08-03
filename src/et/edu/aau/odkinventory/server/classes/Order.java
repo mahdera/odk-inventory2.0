@@ -27,6 +27,11 @@ public class Order { // build___1354971595_core
 	private float condom_amount;
 	private float injectable_amount;
 	private float implant_amount;
+	
+	
+
+	public Order() {
+	}
 
 	/**
 	 * @param _uri

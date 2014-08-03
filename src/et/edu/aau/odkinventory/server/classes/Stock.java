@@ -18,6 +18,11 @@ public class Stock {
 	
 	
 
+	public Stock() {
+	}
+
+
+
 	/**
 	 * @param stockName
 	 * @param healthPostId

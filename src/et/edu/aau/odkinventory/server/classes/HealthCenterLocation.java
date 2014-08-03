@@ -18,6 +18,11 @@ public class HealthCenterLocation {
 	private String gote;
 	private String googleMap;
 	private int healthCenterId;
+	
+	
+	
+	public HealthCenterLocation() {
+	}
 	/**
 	 * @param woreda
 	 * @param kebele

@@ -15,6 +15,11 @@ public class NurseManagesHealthCenter {
 	private int id;
 	private int userId;
 	private int healthCenterId;
+	
+	
+
+	public NurseManagesHealthCenter() {
+	}
 
 	/**
 	 * @param userId

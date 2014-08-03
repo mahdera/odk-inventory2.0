@@ -28,6 +28,11 @@ public class LostDamaged {
 	private float injectable_amount;
 	private float implant_amount;
 	
+	
+	
+
+	public LostDamaged() {
+	}
 
 	/**
 	 * @param _uri

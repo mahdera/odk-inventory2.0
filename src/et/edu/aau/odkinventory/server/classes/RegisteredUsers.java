@@ -25,6 +25,10 @@ public class RegisteredUsers {
 	private String BASIC_AUTH_SALT;
 	private String DIGEST_AUTH_PASSWORD;
 	private String IS_REMOVED;
+	
+	
+	public RegisteredUsers() {
+	}
 	/**
 	 * @param _URI
 	 * @param _CREATOR_URI_USER

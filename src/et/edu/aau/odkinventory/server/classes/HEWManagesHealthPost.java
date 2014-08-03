@@ -15,6 +15,11 @@ public class HEWManagesHealthPost {
 	private int id;
 	private int userId;
 	private int healthPostId;
+	
+	
+
+	public HEWManagesHealthPost() {
+	}
 
 	/**
 	 * @param userId

@@ -26,6 +26,11 @@ public class PhoneResponsibility {
 	private String phoneNumber;
 	private Date dateGivenOn;
 	private String description;
+	
+	
+
+	public PhoneResponsibility() {
+	}
 
 	/**
 	 * @param fullName

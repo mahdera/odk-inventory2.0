@@ -1,11 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>	
+
+	<bean id="account" class="et.edu.aau.odkinventory.server.classes.Account">
+		
+	</bean>
 	
 	<bean id="healthCenter" class="et.edu.aau.odkinventory.server.classes.HealthCenter">
-		<property name="id" value="0"></property>
-		<property name="healthCenterName" value="Health Center Name"></property>
-		<property name="description" value="Health center description"></property>		
+				
+	</bean>
+	
+	<bean id="healthCenterLocation" class="et.edu.aau.odkinventory.server.classes.HealthCenterLocation">
+		
+	</bean>
+	
+	<bean id="healthPost" class="et.edu.aau.odkinventory.server.classes.HealthPost">
+		
+	</bean>
+	
+	
+	<bean id="healthPostLocation" class="et.edu.aau.odkinventory.server.classes.HealthPostLocation">
+		
+	</bean>
+    
+	
+	<bean id="approvedOrder" class="et.edu.aau.odkinventory.server.classes.ApprovedOrder">
+		
+	</bean>
+	
+	<bean id="hew" class="et.edu.aau.odkinventory.server.classes.HEW">
+		
+	</bean>
+	
+	<bean id="hewManagesHealthPost" class="et.edu.aau.odkinventory.server.classes.HEWManagesHealthPost">
+		
+	</bean>
+	
+	<bean id="itemCodeLookup" class="et.edu.aau.odkinventory.server.classes.ItemCodeLookup">
+		
+	</bean>
+	
+	<bean id="itemReorderLevel" class="et.edu.aau.odkinventory.server.classes.ItemReorderLevel">
+		
+	</bean>
+	
+	<bean id="itemReorderReminder" class="et.edu.aau.odkinventory.server.classes.ItemReorderReminder">
+		
+	</bean>
+	
+	<bean id="mainStore" class="et.edu.aau.odkinventory.server.classes.MainStore">
+				
+	</bean>
+	
+	<bean id="mainStoreDetail" class="et.edu.aau.odkinventory.server.classes.MainStoreDetail">
+				
+	</bean>
+	
+	<bean id="mother" class="et.edu.aau.odkinventory.server.classes.Mother">
+		
+	</bean>
+	
+	<bean id="nurseManagesHealthCenter" class="et.edu.aau.odkinventory.server.classes.NurseManagesHealthCenter">
+				
+	</bean>
+	
+	<bean id="phoneResponsibility" class="et.edu.aau.odkinventory.server.classes.PhoneResponsibility">
+		
+	</bean>
+	
+	<bean id="relateOdkuserWithInventoryUser" class="et.edu.aau.odkinventory.server.classes.RelateODKUserWithInventoryUser">
+				
+	</bean>
+	
+	<bean id="reminderMessage" class="et.edu.aau.odkinventory.server.classes.ReminderMessage">
+		
+	</bean>
+	
+	<bean id="role" class="et.edu.aau.odkinventory.server.classes.Role">
+		
+	</bean>
+	
+	<bean id="schedule" class="et.edu.aau.odkinventory.server.classes.Schedule">
+		
+	</bean>
+	
+	<bean id="stock" class="et.edu.aau.odkinventory.server.classes.Stock">
+				
+	</bean>
+	
+	<bean id="stockDetail" class="et.edu.aau.odkinventory.server.classes.StockDetail">
+				
+	</bean>
+	
+	<bean id="user" class="et.edu.aau.odkinventory.server.classes.User">
+				
 	</bean>
 	
 </beans>

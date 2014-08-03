@@ -17,6 +17,11 @@ public class ItemReorderLevel {
 	private String itemCode;
 	private float reorderLevel;
 	private float emergencyReorderLevel;
+	
+	
+
+	public ItemReorderLevel() {
+	}
 
 	/**
 	 * @param stockId

@@ -3,8 +3,9 @@
  */
 package et.edu.aau.odkinventory.server.classes;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,13 @@ public class ApprovedOrder {
 	private float condomAmount;
 	private float injectableAmount;
 	private float implantAmount;
+	
+	
+	
+
+	public ApprovedOrder() {
+		super();
+	}
 
 	/**
 	 * @param _uri
@@ -334,4 +342,6 @@ public class ApprovedOrder {
 			DBConnection.disconnectDatabase();
 		}
 	}
+	
+	
 }// end class

@@ -17,6 +17,11 @@ public class MainStoreDetail {
 	private String itemCode;
 	private float currentQuantity;
 
+	
+	
+	public MainStoreDetail() {
+	}
+
 	/**
 	 * @param mainStoreId
 	 * @param itemId

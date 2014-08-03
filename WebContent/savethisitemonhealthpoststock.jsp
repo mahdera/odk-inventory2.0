@@ -1,3 +1,5 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="et.edu.aau.odkinventory.server.classes.*"%>
 <%
 	int stockId = Integer.parseInt(request.getParameter("stockId"));
@@ -14,7 +16,13 @@
 		StockDetail.updateTheQuantityOfThisItemOnThisStock(stockId,itemCode,updatedQuantity);
 	}else{
 		//insert new record
-		StockDetail stockDetail = new StockDetail(stockId,itemCode,quantity);
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
+		
+		StockDetail stockDetail = (StockDetail) appContext.getBean("stockDetail");
+		stockDetail.setStockId(stockId);
+		stockDetail.setItemCode(itemCode);
+		stockDetail.setCurrentQuantity(quantity);
+		
 		stockDetail.addStockDetail();
 	}
 %>

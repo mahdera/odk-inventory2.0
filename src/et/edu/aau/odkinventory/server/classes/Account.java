@@ -97,18 +97,18 @@ public class Account {
 
 	public void addAccount() {
 		try {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			System.out.println(dateFormat.format(cal.getTime()));
-			String sqlStr = "insert into tbl_account values(?,?,?,?,?,?)";
+			String sqlStr = "insert into tbl_account values(?,?,?,?,NOW(),?)";
 			PreparedStatement pStmt = DBConnection.getPreparedStatement(sqlStr);			 
 			String passwordString = "MD5('"+this.getPassword()+"')";
 			pStmt.setInt(1, 0);
 			pStmt.setInt(2, this.getUserId());
 			pStmt.setString(3, this.getUsername());
 			pStmt.setString(4, passwordString);
-			pStmt.setDate(5, java.sql.Date.valueOf(dateFormat.format(cal.getTime())));
-			pStmt.setString(6, "Approved");	
+			//pStmt.setDate(5, java.sql.Date.valueOf(dateFormat.format(cal.getTime())));
+			pStmt.setString(5, "Approved");	
 			DBConnection.writeToDatabaseSec(pStmt);
 		} catch (Exception e) {
 			e.printStackTrace();

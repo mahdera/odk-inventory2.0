@@ -18,6 +18,11 @@ public class Schedule {
 	private Date lastVisitDate;
 	private Date nextScheduledDate;
 	private Date actualVisitDate;
+	
+	
+	
+	public Schedule() {
+	}
 	/**
 	 * @param motherId
 	 * @param lastVisitDate

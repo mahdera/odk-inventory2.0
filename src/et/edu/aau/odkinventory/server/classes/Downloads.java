@@ -23,6 +23,11 @@ public class Downloads {
 	private String description;
 	private FileInputStream fis;
 	private InputStream ins;
+	
+	
+
+	public Downloads() {
+	}
 
 	/**
 	 * @param title
