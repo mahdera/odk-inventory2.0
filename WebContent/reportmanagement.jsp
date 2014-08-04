@@ -13,7 +13,8 @@
 					<option value="contraceptiveOrderPatternForAllHealthPosts">Contraceptive order pattern report for all health posts (Order)</option>
 					<option value="contraceptiveLostOrDamagePatternForAllHealthPosts">Contraceptive lost or damaged pattern report for all health posts (Lost or Damaged)</option>
 					<option value="contraceptiveConsumptionPatternPercentage">Contraceptive consumption percentage report</option>
-					<option value="stockOutReport">Stock out report</option>
+					<option value="stockOutReport">Stock out report (Health Centers and Health Posts)</option>
+					<option value="stockOutReportHealthPostSummary">Stock out report health post summary / Listing</option>
 				</select>
 			</td>
 		</tr>
@@ -40,6 +41,8 @@
 					$('#reportDiv').load("showcontraceptiveorderpatternforallhealthpostsselectorbar.jsp");					
 				}else if(selectedValue === "contraceptiveLostOrDamagePatternForAllHealthPosts"){
 					$('#reportDiv').load("showcontraceptivelostordamagedpatternforallhealthpostsselectorbar.jsp");					
+				}else if(selectedValue === "stockOutReportHealthPostSummary"){
+					$('#reportDiv').load("showhealthpostliststockoutreportselectorbar.jsp");
 				}
 			}else{
 				alert('Please select a report type!');
