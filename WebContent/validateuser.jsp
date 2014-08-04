@@ -6,19 +6,15 @@
 <%
             String username = request.getParameter("txtusername");
             String password = request.getParameter("txtpassword");
-            //int languageId = Integer.parseInt(request.getParameter("slctlanguage"));
-            System.out.println(username+":"+password);
-            System.out.println("inside validateuser.jsp");
+                        
             Account account = Account.getAccount(username,password);
-            //ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
-            //Account account = (Account) applicationContext.getBean("account");
-            
+                        
             if (account != null)
             {
             		System.out.println(account);
                 session.setMaxInactiveInterval(3600);                               
                 session.setAttribute("account",account);
-                //session.setAttribute("langId",languageId);
+                
                 System.out.println("there is an account mahder");
                 %>
                 		<script type="text/javascript">

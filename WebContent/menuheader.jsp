@@ -40,3 +40,33 @@
 		</ul> 
  
 	</div> <!-- /header --> 
+	<script type="text/javascript">		
+			function performThisFunction(menuName) {	
+				if (menuName == "adminFields") {
+					$('#content').load("adminfieldsmanagementinnercontent.jsp");					
+				}else if(menuName == "accountManagement"){
+					$('#content').load("accountmanagement.jsp");					
+				}else if(menuName == "hewManagement"){
+					$('#content').load("hewmanagement.jsp");					
+				}else if(menuName == "roleManagement"){
+					$('#content').load("rolemanagement.jsp");					
+				}else if(menuName == "orderManagement"){
+					$('#content').load("ordermanagement.jsp");				
+				}else if(menuName == "grvManagement"){
+					$('#content').load("grvmanagement.jsp");					
+				}else if(menuName == "givManagement"){
+					$('#content').load("givmanagement.jsp");					
+				}else if(menuName == "viewApprovedOrders"){
+					$('#content').load("viewapprovedorders.jsp");					
+				}else if(menuName == "downloadsManagement"){
+					$('#content').load("downloadsmanagement.jsp");					
+				}else if(menuName == "reportManagement"){
+					$('#content').load("reportmanagement.jsp");					
+				}else if(menuName == "motherManagement"){
+					$('#content').load("mothermanagement.jsp");					
+				}else if(menuName == "scheduleManagement"){
+					$('#content').load("schedulemanagement.jsp");					
+				}
+			}
+		
+	</script>

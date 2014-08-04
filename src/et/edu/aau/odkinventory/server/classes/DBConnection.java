@@ -15,7 +15,7 @@ public class DBConnection {
     private static Statement stmt;
     private static ResultSet rSet;
     private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:8889/odk_prod?useUnicode=true&characterEncoding=UTF-8";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/odk_prod?useUnicode=true&characterEncoding=UTF-8";
     private static boolean connected;
 
     public DBConnection() {
@@ -24,7 +24,7 @@ public class DBConnection {
 
     private static void connect() throws Exception {
         Class.forName(DATABASE_DRIVER).newInstance();
-        con = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        con = DriverManager.getConnection(DATABASE_URL, "root", "invroot");
         if(con != null){
         		stmt = con.createStatement();
         		connected = true;

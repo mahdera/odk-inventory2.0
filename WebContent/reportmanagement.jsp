@@ -5,7 +5,7 @@
 		<tr>
 			<td>Select a Report:</td>
 			<td>
-				<select name="slctreport" id="slctreport" style="width:100%" onchange="showReport(this.value);">
+				<select name="slctreport" id="slctreport" style="width:100%" >
 					<option value="" selected="selected">--Select--</option>
 					<option value="contraceptiveConsumptionPattern">Contraceptive consumption pattern report</option>
 					<option value="contraceptiveConsumptionPatternForAllHealthPosts">Contraceptive consumption pattern report for all health posts (GIV)</option>
@@ -20,3 +20,30 @@
 	</table>
 </form>
 <div id="reportDiv"></div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#slctreport').change(function(){
+			var selectedValue = $(this).val();
+			
+			if(selectedValue !== ""){
+				if(selectedValue === "contraceptiveConsumptionPattern"){
+					$('#reportDiv').load("showcontraceptiveconsumptionpatternselectorbar.jsp");					
+				}else if(selectedValue === "contraceptiveConsumptionPatternPercentage"){
+					$('#reportDiv').load("showcontraceptiveconsumptionpatternpercentageselectorbar.jsp");					
+				}else if(selectedValue === "stockOutReport"){
+					$('#reportDiv').load("showstockoutselectorbar.jsp");					
+				}else if(selectedValue === "contraceptiveConsumptionPatternForAllHealthPosts"){
+					$('#reportDiv').load("showcontraceptiveconsumptionpatternforallhealthpostsselectorbar.jsp");					
+				}else if(selectedValue === "contraceptiveReceivePatternForAllHealthPosts"){
+					$('#reportDiv').load("showcontraceptivereceivepatternforallhealthpostsselectorbar.jsp");					
+				}else if(selectedValue === "contraceptiveOrderPatternForAllHealthPosts"){
+					$('#reportDiv').load("showcontraceptiveorderpatternforallhealthpostsselectorbar.jsp");					
+				}else if(selectedValue === "contraceptiveLostOrDamagePatternForAllHealthPosts"){
+					$('#reportDiv').load("showcontraceptivelostordamagedpatternforallhealthpostsselectorbar.jsp");					
+				}
+			}else{
+				alert('Please select a report type!');
+			}
+		});
+	});//end document.ready function
+</script>

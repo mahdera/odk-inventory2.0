@@ -34,7 +34,7 @@ public class Account {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		String currentDate = dateFormat.format(cal.getTime());
-		System.out.println(currentDate);
+		//System.out.println(currentDate);
 		accountCreationDate = Date.valueOf(currentDate);
 		this.userId = userId;
 	}
@@ -99,7 +99,7 @@ public class Account {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
-			System.out.println(dateFormat.format(cal.getTime()));
+			//System.out.println(dateFormat.format(cal.getTime()));
 			String sqlStr = "insert into tbl_account values(?,?,?,?,NOW(),?)";
 			PreparedStatement pStmt = DBConnection.getPreparedStatement(sqlStr);			 
 			String passwordString = "MD5('"+this.getPassword()+"')";
