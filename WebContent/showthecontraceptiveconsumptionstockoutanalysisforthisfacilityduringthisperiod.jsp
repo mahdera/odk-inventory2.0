@@ -14,6 +14,9 @@
 	float pillsTotalQty=0.0f;
 	float injectableTotalQty=0.0f;
 	float implantTotalQty=0.0f;
+	List<HealthPost> stockOutHealthPostList = new ArrayList<HealthPost>();
+	Iterator<HealthPost> stockOutHealthPostItr = null;
+	boolean isHealthPostStockOut = false;
 	
 	//condomTotalQty =....stopped here...continue from here... 
 	
@@ -65,10 +68,11 @@
 			HEWManagesHealthPost hewManagesHealthPost = hewManagesHealthPostItr.next();
 			int hewId = hewManagesHealthPost.getUserId();
 			User user = User.getUser(hewId);
-			String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
+			
 			//now get the odk user id of this inv user from the database...
 			RelateODKUserWithInventoryUser relatedUser = RelateODKUserWithInventoryUser.getRelateODKUserWithInventoryUserForInventoryUser(hewId);
 			if(relatedUser != null){
+				String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
 				//now get sum of all givs issued by this particular user during this period for each item code
 				float pillsGIVAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("PILLS_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
 				float condomGIVAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("CONDOM_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
@@ -283,11 +287,12 @@
 			while(hewManagesHealthPostItr.hasNext()){
 				HEWManagesHealthPost hewManagesHealthPost = hewManagesHealthPostItr.next();
 				int hewId = hewManagesHealthPost.getUserId();
-				User user = User.getUser(hewId);
-				String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
+				User user = User.getUser(hewId);				
+				
 				//now get the odk user id of this inv user from the database...
 				RelateODKUserWithInventoryUser relatedUser = RelateODKUserWithInventoryUser.getRelateODKUserWithInventoryUserForInventoryUser(hewId);
 				if(relatedUser != null && user != null){
+					String hewFullName = user.getFirstName()+" "+user.getMiddleName()+" "+user.getLastName();
 					//now get sum of all givs issued by this particular user during this period for each item code
 					float pillsGIVAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("PILLS_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
 					float condomGIVAmt = GIV.getTotalIssuedAmountsForThisItemByThisUserDuringThisPeriod("CONDOM_AMOUNT",relatedUser.get_uri(),fromDate,toDate);
@@ -333,6 +338,7 @@
 						<%
 							float condomGIVRemainingAmount = (condomGRVAmt - condomLostDamagedAmt) - condomGIVAmt;
 							if(condomGIVAmt > (condomGRVAmt - condomLostDamagedAmt) || condomGIVRemainingAmount == 0){
+								isHealthPostStockOut = true;								
 								%>
 								<font color="red">STOCK OUT</font>
 								<%
@@ -348,6 +354,7 @@
 						<%
 							float pillsGIVRemainingAmount = (pillsGRVAmt - pillsLostDamagedAmt) - pillsGIVAmt;
 							if(pillsGIVAmt > (pillsGRVAmt - pillsLostDamagedAmt) || pillsGIVRemainingAmount == 0){
+								isHealthPostStockOut = true;
 								%>
 								<font color="red">STOCK OUT</font>
 								<%
@@ -363,6 +370,7 @@
 						<%
 							float injectableGIVRemainingAmount = (injectableGRVAmt - injectableLostDamagedAmt) - injectableGIVAmt;
 							if(injectableGIVAmt > (injectableGRVAmt - injectableLostDamagedAmt) || injectableGIVRemainingAmount == 0){
+								isHealthPostStockOut = true;
 								%>
 								<font color="red">STOCK OUT</font>
 								<%
@@ -378,6 +386,7 @@
 						<%
 							float implantGIVRemainingAmount = (implantGRVAmt - implantLostDamagedAmt) - implantGIVAmt;
 							if(implantGIVAmt > (implantGRVAmt - implantLostDamagedAmt) || implantGIVRemainingAmount == 0){
+								isHealthPostStockOut = true;
 								%>
 								<font color="red">STOCK OUT</font>
 								<%
@@ -393,20 +402,26 @@
 						<%
 							float totalGIVRemainingAmount = (grandTotalGRV - grandTotalLostDamaged) - grandTotalGIV;
 							if(grandTotalGIV > (grandTotalGRV - grandTotalLostDamaged) || totalGIVRemainingAmount == 0){
+								isHealthPostStockOut = true;
 								%>
 								<font color="red">STOCK OUT</font>
 								<%
 							}else{
 								//show the remaining amount								 
 								%>
-								<font color="green"><%=totalGIVRemainingAmount %></font>
+								<font color="green"><%=twoDigit.format(totalGIVRemainingAmount) %></font>
 								<%
 							}
 						%>
 					</td>
 				</tr>
 					<%
-				}
+					if(isHealthPostStockOut){
+						HealthPost hPost = HealthPost.getHealthPost(hewManagesHealthPost.getHealthPostId());
+						stockOutHealthPostList.add(hPost);
+					}
+				}//end if relatedUser != null
+				isHealthPostStockOut = false;
 			}//end while loop
 			%>
 				<tr style="font-weight:bolder">				
@@ -426,7 +441,34 @@
 		}//end health center while loop
 		float hcGrandTotal = hcCondomAmount + hcPillsAmount + hcInjectableAmount + hcImplantAmount;
 		%>
-		<!-- here was the consumption summary table -->
+		<h3>Health Center Stock out Summary (All HPs Stock out Listing):</h3>
+		<table border="0" width="100%">
+			<%
+				int ctr=1;
+			%>
+			<tr style="background:red;color:white;font-size:11pt;font-weight:bolder">
+				<td>Ser.No.</td>
+				<td>Health Post Name</td>
+				<td>Stock Status</td>
+				<td>Stock Out Period</td>				
+			</tr>
+			<%
+				if(!stockOutHealthPostList.isEmpty()){
+					stockOutHealthPostItr = stockOutHealthPostList.iterator();
+					while(stockOutHealthPostItr.hasNext()){
+						HealthPost hPost = stockOutHealthPostItr.next();
+			%>			
+			<tr>
+				<td><%=ctr++ %></td>
+				<td><%=hPost.getHealthPostName() %></td>
+				<td><font color='red'>STOCK OUT</font></td>
+				<td><%=fromDate %> up to <%=toDate %></td>				
+			</tr>
+			<%
+					}//end while loop
+				}//end if
+			%>
+		</table>
 		<%
 		}//!hewHealthPostList.isEmpty()...
 	}//end else if hc level
